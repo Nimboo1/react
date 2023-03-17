@@ -1,0 +1,18 @@
+.header {
+  background-color: rgb(201, 213, 224);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20%;
+  height: 70px;
+
+  &__link {
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  &__link_active {
+    color: rgb(142, 171, 197);
+    text-decoration: underline;
+  }
+}
