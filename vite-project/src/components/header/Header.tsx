@@ -1,18 +1,16 @@
 import React, { ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 import './header.scss';
 
 type linkState = {
   links: number[];
 };
 
-type headerProps = {
-  class: string;
-};
-
-class Header extends React.Component<headerProps, linkState> {
+class Header extends React.Component<{}, linkState> {
   private readonly linksTitles = ['Main', 'About us'];
+  private readonly linksAddress = ['/', '/about'];
 
-  constructor(props: headerProps) {
+  constructor(props: {}) {
     super(props);
     this.state = {
       links: [1, 0],
@@ -30,15 +28,21 @@ class Header extends React.Component<headerProps, linkState> {
 
   render() {
     const links: ReactElement[] = this.state.links.map((el, i) => (
-      <div
+      <Link
+        to={this.linksAddress[i]}
         className={el === 1 ? 'header__link header__link_active' : 'header__link'}
         onClick={() => this.clickHandler(i)}
+        key={this.linksAddress[i]}
       >
         {this.linksTitles[i]}
-      </div>
+      </Link>
     ));
 
-    return <header className={this.props.class}>{links}</header>;
+    return (
+      <header className="header">
+        <nav className="header__nav">{links}</nav>
+      </header>
+    );
   }
 }
 

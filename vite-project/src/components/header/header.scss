@@ -1,13 +1,19 @@
 .header {
   background-color: rgb(201, 213, 224);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20%;
   height: 70px;
 
+  &__nav {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20%;
+  }
+
   &__link {
-    font-size: 24px;
+    color: rgb(67, 99, 126);
+    font-size: 36px;
+    text-decoration: none;
     cursor: pointer;
   }
 
