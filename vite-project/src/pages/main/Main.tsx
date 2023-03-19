@@ -1,9 +1,13 @@
-import React from 'react';
+import SearchBar from '../../components/search-bar/SearchBar';
+import CardContainer from '../../components/card-container/CardContainer';
 
-class Main extends React.Component {
-  render() {
-    return <div className="main">Main</div>;
-  }
+function Main() {
+  return (
+    <div className="main">
+      <SearchBar />
+      <CardContainer />
+    </div>
+  );
 }
 
 export default Main;

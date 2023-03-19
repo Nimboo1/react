@@ -15,6 +15,11 @@
     font-size: 36px;
     text-decoration: none;
     cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  &__link:hover {
+    color: rgb(142, 171, 197);
   }
 
   &__link_active {

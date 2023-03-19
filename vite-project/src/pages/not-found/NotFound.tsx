@@ -1,10 +1,7 @@
-import React from 'react';
 import './not-found.scss';
 
-class NotFound extends React.Component {
-  render() {
-    return <div className="not-found">404</div>;
-  }
+function NotFound() {
+  return <div className="not-found">404</div>;
 }
 
 export default NotFound;

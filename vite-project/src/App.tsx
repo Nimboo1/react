@@ -7,6 +7,11 @@ import NotFound from './pages/not-found/NotFound';
 import './index.css';
 
 class App extends React.Component {
+  constructor(props: Record<string, never>) {
+    super(props);
+    this.state = {};
+  }
+
   render() {
     return (
       <div>
