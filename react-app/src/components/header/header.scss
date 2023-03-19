@@ -1,0 +1,29 @@
+.header {
+  background-color: rgb(201, 213, 224);
+  height: 70px;
+
+  &__nav {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20%;
+  }
+
+  &__link {
+    color: rgb(67, 99, 126);
+    font-size: 36px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  &__link:hover {
+    color: rgb(142, 171, 197);
+  }
+
+  &__link_active {
+    color: rgb(142, 171, 197);
+    text-decoration: underline;
+  }
+}
