@@ -1,0 +1,14 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.incorrect,
+.invisible {
+  opacity: 0;
+}
+
+.input:invalid + .incorrect {
+  opacity: 1;
+}
