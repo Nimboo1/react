@@ -17,11 +17,11 @@ class FormCard extends React.Component<CardInfo, Record<string, never>> {
     return (
       <div className="form-card">
         <img src={card.file ? window.URL.createObjectURL(card.file) : ''} alt="img" />
-        <div className="card__props">
-          <p className="card__title">{card.name}</p>
-          <p className="card__prop">{card.date}</p>
-          <p className="card__prop">Gender: {card.select}</p>
-          <p className="card__prop">Access: {card.paid}</p>
+        <div className="form-card__props">
+          <p className="form-card__title">{card.name}</p>
+          <p>{card.date}</p>
+          <p>Gender: {card.select}</p>
+          <p>Access: {card.paid}</p>
         </div>
       </div>
     );

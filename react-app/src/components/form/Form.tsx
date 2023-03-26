@@ -21,7 +21,6 @@ class Form extends React.Component<FormProps, Record<string, never>> {
 
   constructor(props: FormProps) {
     super(props);
-    this.state = {};
 
     this.nameInput = React.createRef() as React.RefObject<HTMLInputElement>;
     this.dateInput = React.createRef() as React.RefObject<HTMLInputElement>;
@@ -103,8 +102,13 @@ class Form extends React.Component<FormProps, Record<string, never>> {
           <input type="radio" name="pay" value="paid" ref={this.paidInput} />
         </label>
         <label className="label">
-          <input type="file" ref={this.fileInput} required />
-          <span className="incorrect">Field is required</span>
+          <input
+            type="file"
+            className="file"
+            accept=".jpeg,.jpg,.png"
+            ref={this.fileInput}
+            required
+          />
         </label>
         <button type="submit" className="submit">
           Submit

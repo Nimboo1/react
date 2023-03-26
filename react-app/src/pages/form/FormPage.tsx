@@ -19,7 +19,7 @@ class FormPage extends React.Component<Record<string, never>, PageState> {
     };
   }
 
-  handleSubmit(state: FormPageState) {
+  private handleSubmit(state: FormPageState) {
     this.setState((prev) => ({
       cards: [...prev.cards, state],
       isSent: true,
@@ -31,9 +31,9 @@ class FormPage extends React.Component<Record<string, never>, PageState> {
   render() {
     const { cards, isSent } = this.state;
     return (
-      <div>
+      <div className="form-page">
         <Form onSubmit={(data) => this.handleSubmit(data)} />
-        <p className={isSent ? '' : 'invisible'}>Form sent</p>
+        <p className={isSent ? 'sent' : 'invisible sent'}>Form sent</p>
         <FormCardContainer cardsArr={cards} />
       </div>
     );
