@@ -1,45 +1,40 @@
 /* eslint-disable react/no-unused-state */
 import React from 'react';
 import Form from '../../components/form/Form';
+import FormCardContainer from '../../components/form-card-container/FormCardContainer';
 import FormPageState from '../../types/FormPageState';
 import './form-page.scss';
 
 type PageState = {
-  form: FormPageState;
   isSent: boolean;
+  cards: FormPageState[];
 };
 
 class FormPage extends React.Component<Record<string, never>, PageState> {
   constructor(props: Record<string, never>) {
     super(props);
     this.state = {
-      form: {
-        name: '',
-        date: '',
-        select: '',
-        checkbox: false,
-        paid: '',
-        file: null,
-      },
+      cards: [],
       isSent: false,
     };
   }
 
   handleSubmit(state: FormPageState) {
-    this.setState({
-      form: state,
+    this.setState((prev) => ({
+      cards: [...prev.cards, state],
       isSent: true,
-    });
+    }));
 
     setTimeout(() => this.setState({ isSent: false }), 2000);
   }
 
   render() {
-    const { isSent } = this.state;
+    const { cards, isSent } = this.state;
     return (
       <div>
         <Form onSubmit={(data) => this.handleSubmit(data)} />
         <p className={isSent ? '' : 'invisible'}>Form sent</p>
+        <FormCardContainer cardsArr={cards} />
       </div>
     );
   }
