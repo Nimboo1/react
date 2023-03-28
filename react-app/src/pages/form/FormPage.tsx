@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-state */
 import React from 'react';
 import Form from '../../components/form/Form';
 import FormCardContainer from '../../components/form-card-container/FormCardContainer';

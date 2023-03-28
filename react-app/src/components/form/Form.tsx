@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/lines-between-class-members */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { FormEvent } from 'react';
@@ -11,12 +10,19 @@ type FormProps = {
 
 class Form extends React.Component<FormProps, Record<string, never>> {
   private nameInput;
+
   private dateInput;
+
   private select;
+
   private checkbox;
+
   private freeInput;
+
   private paidInput;
+
   private fileInput;
+
   private form;
 
   constructor(props: FormProps) {

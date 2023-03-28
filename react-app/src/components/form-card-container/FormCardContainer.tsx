@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import FormCard from '../form-card/FormCard';
 import FormPageState from '../../types/FormPageState';
@@ -18,8 +17,8 @@ class FormCardContainer extends React.Component<Cards, Record<string, never>> {
     const { cardsArr } = this.props;
     return (
       <div className="form-card-container">
-        {cardsArr.map((card, index) => (
-          <FormCard card={card} key={card.name + index} />
+        {cardsArr.map((card) => (
+          <FormCard card={card} key={new Date().getTime() + card.name} />
         ))}
       </div>
     );
