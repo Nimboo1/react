@@ -37,10 +37,5 @@
 }
 
 .incorrect {
-  opacity: 0;
   color: rgb(233, 125, 125);
-}
-
-.input:invalid + .incorrect {
-  opacity: 1;
 }

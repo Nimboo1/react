@@ -1,18 +1,18 @@
-import React, { ReactElement } from 'react';
 import Card from '../card/Card';
 import CardData from '../../types/CardData';
 import data from '../../data/data';
 import './card-container.scss';
 
-class CardContainer extends React.Component {
-  data: CardData[] = data;
+function CardContainer() {
+  const cards: CardData[] = data;
 
-  render() {
-    const cardList: ReactElement[] = this.data.map((cardInfo) => (
-      <Card cardInfo={cardInfo} key={cardInfo.id} />
-    ));
-    return <div className="card-container">{cardList}</div>;
-  }
+  return (
+    <div className="card-container">
+      {cards.map((cardInfo) => (
+        <Card cardInfo={cardInfo} key={cardInfo.id} />
+      ))}
+    </div>
+  );
 }
 
 export default CardContainer;
