@@ -1,0 +1,23 @@
+.form-card {
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 7px;
+  background-color: white;
+  border: 1px solid rgb(172, 172, 172);
+  border-radius: 10px;
+
+  &__props {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+
+  &__title {
+    font-weight: 500;
+  }
+}
