@@ -1,16 +1,19 @@
 import Card from '../card/Card';
 import CardData from '../../types/CardData';
-import data from '../../data/data';
 import './card-container.scss';
 
-function CardContainer() {
-  const cards: CardData[] = data;
+type ContainerProps = {
+  cards: CardData[] | null;
+};
 
+function CardContainer({ cards }: ContainerProps) {
   return (
     <div className="card-container">
-      {cards.map((cardInfo) => (
-        <Card cardInfo={cardInfo} key={cardInfo.id} />
-      ))}
+      {cards ? (
+        cards.map((cardInfo) => <Card cardInfo={cardInfo} key={cardInfo.id} />)
+      ) : (
+        <span>Loading...</span>
+      )}
     </div>
   );
 }

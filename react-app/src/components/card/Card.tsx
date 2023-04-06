@@ -10,14 +10,11 @@ function Card(props: CardProps) {
 
   return (
     <div className="card">
-      <img src={cardInfo.thumbnail} alt="img" />
+      <img src={cardInfo.image} alt="img" />
       <div className="card__props">
-        <p className="card__title">{cardInfo.title}</p>
-        <p className="card__prop">Категория: {cardInfo.category}</p>
-        <p className="card__prop">В наличии: {cardInfo.stock}</p>
-        <p className="card__prop">Базовая машина: {cardInfo.baseVehicle}</p>
+        <p className="card__title">{cardInfo.name}</p>
+        <p className="card__prop">Gender: {cardInfo.gender}</p>
       </div>
-      <p className="card__price">{cardInfo.price} руб.</p>
     </div>
   );
 }
