@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Form from '../../components/form/Form';
-import FormCardContainer from '../../components/form-card-container/FormCardContainer';
+import FormCard from '../../components/form-card/FormCard';
+import CardContainer from '../../components/card-container/CardContainer';
 import FormPageState from '../../types/FormPageState';
 import './form-page.scss';
 
@@ -30,7 +31,13 @@ function FormPage() {
     <div className="form-page">
       <Form onSubmit={(data) => handleSubmit(data)} />
       <p className={isSent ? 'sent' : 'invisible sent'}>Form sent</p>
-      <FormCardContainer cardsArr={cards} />
+      {cards.length > 0 && (
+        <CardContainer>
+          {cards.map((card, index) => (
+            <FormCard card={card} key={index} />
+          ))}
+        </CardContainer>
+      )}
     </div>
   );
 }

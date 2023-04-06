@@ -1,21 +1,11 @@
-import Card from '../card/Card';
-import CardData from '../../types/CardData';
 import './card-container.scss';
 
 type ContainerProps = {
-  cards: CardData[] | null;
+  children?: JSX.Element | JSX.Element[];
 };
 
-function CardContainer({ cards }: ContainerProps) {
-  return (
-    <div className="card-container">
-      {cards ? (
-        cards.map((cardInfo) => <Card cardInfo={cardInfo} key={cardInfo.id} />)
-      ) : (
-        <span>Loading...</span>
-      )}
-    </div>
-  );
+function CardContainer({ children }: ContainerProps) {
+  return <div className="card-container">{children}</div>;
 }
 
 export default CardContainer;

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import SearchBar from '../../components/search-bar/SearchBar';
 import CardContainer from '../../components/card-container/CardContainer';
+import Card from '../../components/card/Card';
 import CardData from '../../types/CardData';
 
 const URL = 'https://rickandmortyapi.com/api/character';
@@ -30,7 +31,15 @@ function Main() {
   return (
     <div className="main">
       <SearchBar handler={setCardsFromSearch} />
-      <CardContainer cards={filteredCards} />
+      {filteredCards ? (
+        <CardContainer>
+          {filteredCards.map((cardInfo) => (
+            <Card cardInfo={cardInfo} key={cardInfo.id} />
+          ))}
+        </CardContainer>
+      ) : (
+        <span>Loading...</span>
+      )}
     </div>
   );
 }
