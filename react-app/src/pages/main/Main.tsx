@@ -24,7 +24,7 @@ function Main() {
     fetch(url.href)
       .then((res) => res.json())
       .then((data) => {
-        setTimeout(() => setCards(data.results), 150000);
+        setCards(data.results);
       });
   }, []);
 
