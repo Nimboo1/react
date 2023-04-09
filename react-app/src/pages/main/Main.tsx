@@ -29,6 +29,7 @@ function Main() {
   }, []);
 
   const setCardsFromSearch = (text: string) => {
+    setCards(null);
     const urlWithParams = new URL(url.href);
     if (text) {
       urlWithParams.searchParams.set('name', text);
