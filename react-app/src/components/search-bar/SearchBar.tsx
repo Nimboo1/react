@@ -15,18 +15,23 @@ function SearchBar({ handler }: SearchProp) {
   }, [searchText]);
 
   useEffect(() => {
-    return () => {
-      localStorage.setItem('search', textRef.current);
-    };
-  }, []);
+    return localStorage.setItem('search', textRef.current);
+  });
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
   };
 
-  const clickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     handler(searchText);
+  };
+
+  const keyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handler(searchText);
+    }
   };
 
   return (
@@ -36,6 +41,9 @@ function SearchBar({ handler }: SearchProp) {
         value={searchText}
         placeholder="Search by Name..."
         className="search__input"
+        onKeyDown={(e) => {
+          keyDownHandler(e);
+        }}
         onChange={(e) => {
           changeHandler(e);
         }}

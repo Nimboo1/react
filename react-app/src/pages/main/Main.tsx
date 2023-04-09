@@ -2,44 +2,76 @@ import { useEffect, useState } from 'react';
 import SearchBar from '../../components/search-bar/SearchBar';
 import CardContainer from '../../components/card-container/CardContainer';
 import Card from '../../components/card/Card';
+import Modal from '../../components/modal/Modal';
+import Loading from '../../components/loading/Loading';
 import CardData from '../../types/CardData';
 
-const URL = 'https://rickandmortyapi.com/api/character';
+const url = new URL('https://rickandmortyapi.com/api/character');
 
 function Main() {
   const [cards, setCards] = useState<CardData[] | null>(null);
-  const [filteredCards, setFilteredCards] = useState<CardData[] | null>(null);
-
-  const setCardsFromSearch = (text: string) => {
-    if (!cards) return;
-    if (!text) {
-      setFilteredCards(cards);
-    } else {
-      setFilteredCards(cards.filter(({ name }) => name.toLowerCase().includes(text.toLowerCase())));
-    }
-  };
+  const [card, setCard] = useState<CardData>({
+    id: 1,
+    name: '',
+    status: '',
+    species: '',
+    gender: '',
+    image: '',
+  });
+  const [isModalShown, setIsModalShown] = useState<boolean>(false);
 
   useEffect(() => {
-    fetch(URL)
+    fetch(url.href)
       .then((res) => res.json())
       .then((data) => {
-        setCards(data.results);
-        setFilteredCards(data.results);
+        setTimeout(() => setCards(data.results), 150000);
       });
   }, []);
+
+  const setCardsFromSearch = (text: string) => {
+    const urlWithParams = new URL(url.href);
+    if (text) {
+      urlWithParams.searchParams.set('name', text);
+    }
+    fetch(urlWithParams.href)
+      .then((res) => {
+        if (!res.ok) {
+          throw Error();
+        }
+        return res.json();
+      })
+      .then((data) => {
+        setCards(data.results);
+      })
+      .catch((err) => {
+        setCards([]);
+      });
+  };
+
+  const setCardInfo = (info: CardData) => {
+    setCard(info);
+    setIsModalShown(true);
+  };
+
+  const closeModal = (e: React.MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
+    if (e.target === e.currentTarget) {
+      setIsModalShown(false);
+    }
+  };
 
   return (
     <div className="main">
       <SearchBar handler={setCardsFromSearch} />
-      {filteredCards ? (
+      {cards ? (
         <CardContainer>
-          {filteredCards.map((cardInfo) => (
-            <Card cardInfo={cardInfo} key={cardInfo.id} />
+          {cards.map((cardInfo) => (
+            <Card cardInfo={cardInfo} key={cardInfo.id} clickHandler={setCardInfo} />
           ))}
         </CardContainer>
       ) : (
-        <span>Loading...</span>
+        <Loading />
       )}
+      {isModalShown && <Modal cardInfo={card} clickHandler={closeModal} />}
     </div>
   );
 }

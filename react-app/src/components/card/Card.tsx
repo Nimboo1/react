@@ -3,13 +3,17 @@ import './card.scss';
 
 type CardProps = {
   cardInfo: CardData;
+  clickHandler: (info: CardData) => void;
 };
 
-function Card(props: CardProps) {
-  const { cardInfo } = props;
-
+function Card({ cardInfo, clickHandler }: CardProps) {
   return (
-    <div className="card">
+    <div
+      className="card"
+      onClick={() => {
+        clickHandler(cardInfo);
+      }}
+    >
       <img src={cardInfo.image} alt="img" />
       <div className="card__props">
         <p className="card__title">{cardInfo.name}</p>
