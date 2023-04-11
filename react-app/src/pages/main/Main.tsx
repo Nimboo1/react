@@ -44,7 +44,7 @@ function Main() {
       .then((data) => {
         setCards(data.results);
       })
-      .catch((err) => {
+      .catch(() => {
         setCards([]);
       });
   };
