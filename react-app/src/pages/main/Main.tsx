@@ -20,14 +20,6 @@ function Main() {
   });
   const [isModalShown, setIsModalShown] = useState<boolean>(false);
 
-  useEffect(() => {
-    fetch(url.href)
-      .then((res) => res.json())
-      .then((data) => {
-        setCards(data.results);
-      });
-  }, []);
-
   const setCardsFromSearch = (text: string) => {
     setCards(null);
     const urlWithParams = new URL(url.href);
@@ -48,6 +40,12 @@ function Main() {
         setCards([]);
       });
   };
+
+  useEffect(() => {
+    let searchValue = localStorage.getItem('search');
+    searchValue = searchValue ?? '';
+    setCardsFromSearch(searchValue);
+  }, []);
 
   const setCardInfo = (info: CardData) => {
     setCard(info);
