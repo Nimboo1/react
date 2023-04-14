@@ -8,7 +8,7 @@ import './index.css';
 
 function App() {
   return (
-    <div>
+    <>
       <Header />
       <Routes>
         <Route path="/" element={<Main />} />
@@ -16,7 +16,7 @@ function App() {
         <Route path="form" element={<FormPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </div>
+    </>
   );
 }
 

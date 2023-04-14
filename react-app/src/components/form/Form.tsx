@@ -1,13 +1,10 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import FormPageState from '../../types/FormPageState';
 import './form.scss';
-
-type FormProps = {
-  onSubmit: (state: FormPageState) => void;
-};
+import { formCardSlice } from '../../store/reducers/FormCardSlice';
+import { useAppDispatch } from '../../hooks/redux';
 
 type Inputs = {
   name: string;
@@ -18,7 +15,12 @@ type Inputs = {
   file: FileList;
 };
 
-function Form({ onSubmit }: FormProps) {
+function Form() {
+  const TIMER = 2000;
+  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const { addFormCard, toggleCardSent } = formCardSlice.actions;
+  const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
@@ -30,18 +32,30 @@ function Form({ onSubmit }: FormProps) {
     reset();
   }, [isSubmitSuccessful, reset]);
 
+  useEffect(() => {
+    return () => {
+      clearTimeout(timerRef.current);
+    };
+  }, []);
+
   const handleSubmitForm: SubmitHandler<Inputs> = (data) => {
     const { name, date, select, checkbox, paid, file } = data;
-    if (file) {
-      onSubmit({
+
+    dispatch(toggleCardSent(true));
+    timerRef.current = setTimeout(() => {
+      dispatch(toggleCardSent(false));
+    }, TIMER);
+
+    dispatch(
+      addFormCard({
         name,
         date,
         select,
         checkbox,
         paid,
-        file: file.item(0),
-      });
-    }
+        file: URL.createObjectURL(file.item(0) as File),
+      })
+    );
   };
 
   return (

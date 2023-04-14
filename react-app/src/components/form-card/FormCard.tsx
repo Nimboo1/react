@@ -1,15 +1,15 @@
-import FormPageState from '../../types/FormPageState';
+import FormCardData from '../../types/FormCardData';
 import './form-card.scss';
 
 type CardInfo = {
-  card: FormPageState;
+  card: FormCardData;
 };
 
 function FormCard(props: CardInfo) {
   const { card } = props;
   return (
     <div className="form-card">
-      <img src={card.file ? window.URL.createObjectURL(card.file) : ''} alt="img" />
+      <img src={card.file ? card.file : ''} alt="img" />
       <div className="form-card__props">
         <p className="form-card__title">{card.name}</p>
         <p>{card.date}</p>

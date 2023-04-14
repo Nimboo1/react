@@ -1,10 +1,10 @@
-type FormPageState = {
+type FormCardData = {
   name: string;
   date: string;
   select: string;
   checkbox: boolean;
   paid: string;
-  file: File | null;
+  file: string;
 };
 
-export default FormPageState;
+export default FormCardData;
