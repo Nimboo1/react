@@ -10,29 +10,29 @@ function SearchBar() {
   const { setSearchText } = searchTextSlice.actions;
   const { setCards, setIsLoading } = cardsSlice.actions;
   const dispatch = useAppDispatch();
-  const [trigger, { data: cardData, isError }] = useLazyFetchCardsQuery();
+  const [trigger, { data: cardData, isError, isFetching }] = useLazyFetchCardsQuery();
 
   useEffect(() => {
-    dispatch(setIsLoading(true));
     trigger(searchText);
   }, []);
 
   useEffect(() => {
+    dispatch(setIsLoading(isFetching));
+  }, [isFetching]);
+
+  useEffect(() => {
     if (cardData) {
       dispatch(setCards(cardData.results));
-      dispatch(setIsLoading(false));
     }
   }, [cardData]);
 
   useEffect(() => {
     if (isError) {
       dispatch(setCards([]));
-      dispatch(setIsLoading(false));
     }
   }, [isError]);
 
   const setCardsFromSearch = () => {
-    dispatch(setIsLoading(true));
     trigger(searchText);
   };
 
