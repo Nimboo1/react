@@ -19,7 +19,7 @@ export const formCardSlice = createSlice({
       state.cards.push(action.payload);
     },
     toggleCardSent(state, action: PayloadAction<boolean>) {
-      return { ...state, isCardSent: action.payload };
+      state.isCardSent = action.payload;
     },
   },
 });

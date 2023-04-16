@@ -1,36 +1,54 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { searchTextSlice } from '../../store/reducers/SearchTextSlice';
+import { useLazyFetchCardsQuery } from '../../services/cardService';
+import { cardsSlice } from '../../store/reducers/CardSlice';
 import './search-bar.scss';
 
-type SearchProp = {
-  handler: (text: string) => void;
-};
-
-function SearchBar({ handler }: SearchProp) {
-  const searchValue = localStorage.getItem('search') ?? '';
-  const [searchText, setSearchText] = useState(searchValue);
-  const textRef = React.useRef(searchText);
-
-  React.useEffect(() => {
-    textRef.current = searchText;
-  }, [searchText]);
+function SearchBar() {
+  const { searchText } = useAppSelector((state) => state.searchTextReducer);
+  const { setSearchText } = searchTextSlice.actions;
+  const { setCards, setIsLoading } = cardsSlice.actions;
+  const dispatch = useAppDispatch();
+  const [trigger, { data: cardData, isError }] = useLazyFetchCardsQuery();
 
   useEffect(() => {
-    return localStorage.setItem('search', textRef.current);
-  });
+    dispatch(setIsLoading(true));
+    trigger(searchText);
+  }, []);
+
+  useEffect(() => {
+    if (cardData) {
+      dispatch(setCards(cardData.results));
+      dispatch(setIsLoading(false));
+    }
+  }, [cardData]);
+
+  useEffect(() => {
+    if (isError) {
+      dispatch(setCards([]));
+      dispatch(setIsLoading(false));
+    }
+  }, [isError]);
+
+  const setCardsFromSearch = () => {
+    dispatch(setIsLoading(true));
+    trigger(searchText);
+  };
 
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
+    dispatch(setSearchText(e.target.value));
   };
 
   const clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    handler(searchText);
+    setCardsFromSearch();
   };
 
   const keyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      handler(searchText);
+      setCardsFromSearch();
     }
   };
 
